@@ -8,10 +8,10 @@ import random
 import subprocess
 from subprocess import check_output
 
-#pygame.init()
+pygame.init()
 WIDTH = 1280
 HEIGHT = 1024
-#windowSurface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME, 32)
+windowSurface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME, 32)
 
 
 GPIO.setmode(GPIO.BCM)
@@ -30,7 +30,7 @@ def exitEmulator():
 #	emulation_pid = emulation_pid.decode('ascii')
 #	print('kill -QUIT ' + retroarch_pid)
 	os.system('kill -QUIT ' +retroarch_pid)
-	#print('kill -QUIT ' + emulation_pid)
+#	print('kill -QUIT ' + emulation_pid)
 
 def flipImage(flipcount):
 	for i in range(flipcount):
@@ -38,6 +38,11 @@ def flipImage(flipcount):
 		windowSurface.blit(img, (0, 0)) #Replace (0, 0) with desired coordinates
 		pygame.display.flip()
 		time.sleep(0.7)
+
+def randomGame():
+	retrolaunch_game = random.choice(os.listdir("/home/pi/RetroPie/roms/nes/"))
+	retrolaunch = '/opt/retropie/emulators/retroarch/bin/retroarch', '-L', '/opt/retropie/libretrocores/lr-nestopia/nestopia_libretro.so', '/home/pi/RetroPie/roms/nes/' + retrolaunch_game, '--config=/opt/retropie/configs/all/retroarch.cfg'
+	subprocess.Popen(retrolaunch, stdin=None, stdout=None, stderr=None)
 
 
 while True:
@@ -48,30 +53,26 @@ while True:
 #			print('Exit Emulator')
 			emulator_on = False
 		else:
-			pygame.init()		#possible move to top
-			windowSurface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME, 32)
-			img1 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
-			img2 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
-			img3 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
-			img4 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
-			img5 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
-			img6 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
-			img7 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
-			img8 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
-			flipImage(2)
+#			pygame.init()		#possible move to top
+#			windowSurface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.NOFRAME, 32)
+#			img1 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
+#			img2 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
+#			img3 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
+			flipImage(5)
 #			print('Button Pressed')
 #			windowSurface.blit(img1, (0, 0)) #Replace (0, 0) with desired coordinates
 #			pygame.display.flip()
 #			time.sleep(0.7)
-			windowSurface.blit(img2, (0, 0)) #Replace (0, 0) with desired coordinates
-			pygame.display.flip()
-			time.sleep(0.7)
-			windowSurface.blit(img3, (0, 0)) #Replace (0, 0) with desired coordinates
-			pygame.display.flip()
-			pygame.quit()		#possible not necessary
+#			windowSurface.blit(img2, (0, 0)) #Replace (0, 0) with desired coordinates
+#			pygame.display.flip()
+#			time.sleep(0.7)
+#			windowSurface.blit(img3, (0, 0)) #Replace (0, 0) with desired coordinates
+#			pygame.display.flip()
+#			pygame.quit()		#possible not necessary
 			emulator_on = True
+			randomGame()
 #			print('Launch Emulator')
-			retrolaunch = '/opt/retropie/emulators/retroarch/bin/retroarch', '-L', '/opt/retropie/libretrocores/lr-nestopia/nestopia_libretro.so', '/home/pi/RetroPie/roms/nes/Battletoads.nes', '--config=/opt/retropie/configs/all/retroarch.cfg'
+#			retrolaunch = '/opt/retropie/emulators/retroarch/bin/retroarch', '-L', '/opt/retropie/libretrocores/lr-nestopia/nestopia_libretro.so', '/home/pi/RetroPie/roms/nes/Battletoads.nes', '--config=/opt/retropie/configs/all/retroarch.cfg'
 #			os.system('/opt/retropie/emulators/retroarch/bin/retroarch -L /opt/retropie/libretrocores/lr-nestopia/nestopia_libretro.so /home/pi/RetroPie/roms/nes/Battletoads.nes --config /opt/retropie/configs/all/retroarch.cfg')
-			subprocess.Popen(retrolaunch, stdin=None, stdout=None, stderr=None)
+#			subprocess.Popen(retrolaunch, stdin=None, stdout=None, stderr=None)
 
