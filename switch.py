@@ -1,12 +1,12 @@
 import RPi.GPIO as GPIO
 import time
-import webbrowser
+#import webbrowser
 import pygame
 from pygame.locals import *
 import os
 import random
 import subprocess
-from subprocess import check_output
+#from subprocess import check_output
 
 pygame.init()
 WIDTH = 1280
@@ -20,7 +20,7 @@ GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 emulator_on = False
 
 def get_pid(name):
-	return check_output(["pidof",name])
+	return subprocess.check_output(["pidof",name])
 
 def exitEmulator():
 #	print('exitEmulator')
@@ -29,7 +29,7 @@ def exitEmulator():
 	retroarch_pid = retroarch_pid.decode('ascii')
 #	emulation_pid = emulation_pid.decode('ascii')
 #	print('kill -QUIT ' + retroarch_pid)
-	os.system('kill -QUIT ' +retroarch_pid)
+	os.system('kill -QUIT ' + retroarch_pid)
 #	print('kill -QUIT ' + emulation_pid)
 
 def flipImage(flipcount):
@@ -45,6 +45,7 @@ def randomGame():
 	subprocess.Popen(retrolaunch, stdin=None, stdout=None, stderr=None)
 
 
+
 while True:
 	input_state = GPIO.input(18)
 	if input_state == False:
@@ -58,7 +59,7 @@ while True:
 #			img1 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
 #			img2 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
 #			img3 = pygame.image.load("mario/" + random.choice(os.listdir("/home/pi/mario/")))
-			flipImage(5)
+			flipImage(random.randint(6,20))
 #			print('Button Pressed')
 #			windowSurface.blit(img1, (0, 0)) #Replace (0, 0) with desired coordinates
 #			pygame.display.flip()
