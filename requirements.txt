@@ -1,3 +1,4 @@
+sdl-config
 pygame
 RPi.GPIO
 time
